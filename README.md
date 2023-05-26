@@ -7,7 +7,7 @@ This guide assumes create react app has been succesfully done, so follow this gu
 4. Create a file store.ts and fill it with this content:
 ```
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import mySlice from "./mySlice";
 
 const rootReducer = combineReducers({
