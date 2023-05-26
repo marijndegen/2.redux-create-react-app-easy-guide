@@ -64,12 +64,11 @@ import { store } from "./redux/store";
 ```
 8. Replace the content of app.tsx with:
 ```
-import { useDispatch, useSelector } from "react-redux";
 import { increment } from "./redux/mySlice";
-import { RootState } from "./redux/store";
+import { useAppDispatch, useAppSelector } from "./redux/store";
 
 function App() {
-  const counter = useAppSelector((state: RootState) => state.mySlice.value);
+  const counter = useAppSelector((state) => state.mySlice.value);
   const dispatch = useAppDispatch();
 
   return (
