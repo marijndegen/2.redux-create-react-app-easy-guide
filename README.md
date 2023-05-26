@@ -3,7 +3,8 @@ This guide assumes create react app has been succesfully done, so follow this gu
 
 1. yarn add @reduxjs/toolkit react-redux
 2. Create a directory src/redux
-3. Create a file store.ts and fill it with this content:
+3. cd redux
+4. Create a file store.ts and fill it with this content:
 ```
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import mySlice from "./mySlice";
