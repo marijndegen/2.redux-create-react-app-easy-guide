@@ -7,6 +7,7 @@ This guide assumes create react app has been succesfully done, so follow this gu
 4. Create a file store.ts and fill it with this content:
 ```
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 import mySlice from "./mySlice";
 
 const rootReducer = combineReducers({
@@ -20,9 +21,12 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
 ```
 
-4. Create a file mySlice.ts with the following content:
+5. Create a file mySlice.ts with the following content:
 ```
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -47,26 +51,26 @@ export const { increment } = counterSlice.actions;
 export default counterSlice.reducer;
 
 ```
-5. In index.tsx, import store and Provider:
+6. In index.tsx, import store and Provider:
 ```
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 ```
-6. In index.tsx, wrap the provider to provide the store (replace `<App />` with the following):
+7. In index.tsx, wrap the provider to provide the store (replace `<App />` with the following):
 ```
 <Provider store={store}>
   <App />
 </Provider>
 ```
-7. Replace the content of app.tsx with:
+8. Replace the content of app.tsx with:
 ```
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "./redux/mySlice";
 import { RootState } from "./redux/store";
 
 function App() {
-  const counter = useSelector((state: RootState) => state.mySlice.value);
-  const dispatch = useDispatch();
+  const counter = useAppSelector((state: RootState) => state.mySlice.value);
+  const dispatch = useAppDispatch();
 
   return (
     <>
