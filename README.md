@@ -15,12 +15,16 @@ const rootReducer = combineReducers({
   // Your other reducers here
 });
 
-export const store = configureStore({
-  reducer: rootReducer,
-});
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
 
-export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
@@ -51,10 +55,11 @@ export const { increment } = counterSlice.actions;
 export default counterSlice.reducer;
 
 ```
-6. In index.tsx, import store and Provider:
+6. In index.tsx, import setupStore, Provider and create the store:
 ```
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+const store = setupStore();
 ```
 7. In index.tsx, wrap the provider to provide the store (replace `<App />` with the following):
 ```
