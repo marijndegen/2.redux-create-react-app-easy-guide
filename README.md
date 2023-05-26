@@ -6,13 +6,15 @@ This guide assumes create react app has been succesfully done, so follow this gu
 3. cd redux
 4. Create a file store.ts and fill it with this content:
 ```
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import mySlice from "./mySlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import type { PreloadedState } from "@reduxjs/toolkit";
 
+import userReducer from "../features/users/userSlice";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+
+// Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
-  mySlice,
-  // Your other reducers here
+  user: userReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
@@ -22,9 +24,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = AppStore["dispatch"];
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
