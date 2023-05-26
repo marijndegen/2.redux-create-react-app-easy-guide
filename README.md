@@ -52,7 +52,7 @@ export default counterSlice.reducer;
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 ```
-6. In index.tsx, wrap the provider to provide the store (replace <App /> with the following):
+6. In index.tsx, wrap the provider to provide the store (replace `<App />` with the following):
 ```
 <Provider store={store}>
   <App />
